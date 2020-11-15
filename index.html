@@ -1,0 +1,440 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 724px;
+            height: 540px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/propinsi_maluku_0.js"></script>
+        <script src="data/sungai_maluku_1.js"></script>
+        <script src="data/jalan_maluku_2.js"></script>
+        <script src="data/kota_maluku_3.js"></script>
+        <script src="data/gunung_maluku_4.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-31.136612164617567,131.0872356285846],[-27.541992533048393,135.91124189994696]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        function pop_propinsi_maluku_0(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID2003'] !== null ? autolinker.link(feature.properties['ID2003'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID2000'] !== null ? autolinker.link(feature.properties['ID2000'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROP_NO'] !== null ? autolinker.link(feature.properties['PROP_NO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KABKOTA_NO'] !== null ? autolinker.link(feature.properties['KABKOTA_NO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PROPINSI'] !== null ? autolinker.link(feature.properties['PROPINSI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['KAB_KOTA'] !== null ? autolinker.link(feature.properties['KAB_KOTA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_propinsi_maluku_0_0(feature) {
+            switch(String(feature.properties['KAB_KOTA'])) {
+                case 'AMBON':
+                    return {
+                pane: 'pane_propinsi_maluku_0',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(45,75,223,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'BURU':
+                    return {
+                pane: 'pane_propinsi_maluku_0',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(79,237,211,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MALUKU TENGAH':
+                    return {
+                pane: 'pane_propinsi_maluku_0',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(208,39,64,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MALUKU TENGGARA':
+                    return {
+                pane: 'pane_propinsi_maluku_0',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,198,21,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'MALUKU TENGGARA BARAT':
+                    return {
+                pane: 'pane_propinsi_maluku_0',
+                opacity: 1,
+                color: 'rgba(56,128,54,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,212,69,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_propinsi_maluku_0');
+        map.getPane('pane_propinsi_maluku_0').style.zIndex = 400;
+        map.getPane('pane_propinsi_maluku_0').style['mix-blend-mode'] = 'normal';
+        var layer_propinsi_maluku_0 = new L.geoJson(json_propinsi_maluku_0, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_propinsi_maluku_0',
+            layerName: 'layer_propinsi_maluku_0',
+            pane: 'pane_propinsi_maluku_0',
+            onEachFeature: pop_propinsi_maluku_0,
+            style: style_propinsi_maluku_0_0,
+        });
+        bounds_group.addLayer(layer_propinsi_maluku_0);
+        map.addLayer(layer_propinsi_maluku_0);
+        function pop_sungai_maluku_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>PANJANG</strong><br />' + (feature.properties['PANJANG'] !== null ? autolinker.link(feature.properties['PANJANG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NM_SUNGAI</strong><br />' + (feature.properties['NM_SUNGAI'] !== null ? autolinker.link(feature.properties['NM_SUNGAI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_sungai_maluku_1_0() {
+            return {
+                pane: 'pane_sungai_maluku_1',
+                opacity: 1,
+                color: 'rgba(72,123,182,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_sungai_maluku_1');
+        map.getPane('pane_sungai_maluku_1').style.zIndex = 401;
+        map.getPane('pane_sungai_maluku_1').style['mix-blend-mode'] = 'normal';
+        var layer_sungai_maluku_1 = new L.geoJson(json_sungai_maluku_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_sungai_maluku_1',
+            layerName: 'layer_sungai_maluku_1',
+            pane: 'pane_sungai_maluku_1',
+            onEachFeature: pop_sungai_maluku_1,
+            style: style_sungai_maluku_1_0,
+        });
+        bounds_group.addLayer(layer_sungai_maluku_1);
+        map.addLayer(layer_sungai_maluku_1);
+        function pop_jalan_maluku_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>PANJANG</strong><br />' + (feature.properties['PANJANG'] !== null ? autolinker.link(feature.properties['PANJANG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>NM_JALAN</strong><br />' + (feature.properties['NM_JALAN'] !== null ? autolinker.link(feature.properties['NM_JALAN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_jalan_maluku_2_0() {
+            return {
+                pane: 'pane_jalan_maluku_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        function style_jalan_maluku_2_1() {
+            return {
+                pane: 'pane_jalan_maluku_2',
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_jalan_maluku_2');
+        map.getPane('pane_jalan_maluku_2').style.zIndex = 402;
+        map.getPane('pane_jalan_maluku_2').style['mix-blend-mode'] = 'normal';
+        var layer_jalan_maluku_2 = new L.geoJson.multiStyle(json_jalan_maluku_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_jalan_maluku_2',
+            layerName: 'layer_jalan_maluku_2',
+            pane: 'pane_jalan_maluku_2',
+            onEachFeature: pop_jalan_maluku_2,
+            styles: [style_jalan_maluku_2_0,style_jalan_maluku_2_1,]
+        });
+        bounds_group.addLayer(layer_jalan_maluku_2);
+        map.addLayer(layer_jalan_maluku_2);
+        function pop_kota_maluku_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TEXT_ANGLE'] !== null ? autolinker.link(feature.properties['TEXT_ANGLE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TEXT_SIZE'] !== null ? autolinker.link(feature.properties['TEXT_SIZE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TEXTSTRING'] !== null ? autolinker.link(feature.properties['TEXTSTRING'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_kota_maluku_3_0() {
+            return {
+                pane: 'pane_kota_maluku_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(128,17,25,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,30,42,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_kota_maluku_3');
+        map.getPane('pane_kota_maluku_3').style.zIndex = 403;
+        map.getPane('pane_kota_maluku_3').style['mix-blend-mode'] = 'normal';
+        var layer_kota_maluku_3 = new L.geoJson(json_kota_maluku_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_kota_maluku_3',
+            layerName: 'layer_kota_maluku_3',
+            pane: 'pane_kota_maluku_3',
+            onEachFeature: pop_kota_maluku_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_kota_maluku_3_0(feature));
+            },
+        });
+        var cluster_kota_maluku_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_kota_maluku_3.addLayer(layer_kota_maluku_3);
+
+        bounds_group.addLayer(layer_kota_maluku_3);
+        cluster_kota_maluku_3.addTo(map);
+        function pop_gunung_maluku_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>NM_GUNUNG</strong><br />' + (feature.properties['NM_GUNUNG'] !== null ? autolinker.link(feature.properties['NM_GUNUNG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>TINGGI</strong><br />' + (feature.properties['TINGGI'] !== null ? autolinker.link(feature.properties['TINGGI'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_gunung_maluku_4_0() {
+            return {
+                pane: 'pane_gunung_maluku_4',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(255,255,255,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_gunung_maluku_4');
+        map.getPane('pane_gunung_maluku_4').style.zIndex = 404;
+        map.getPane('pane_gunung_maluku_4').style['mix-blend-mode'] = 'normal';
+        var layer_gunung_maluku_4 = new L.geoJson(json_gunung_maluku_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_gunung_maluku_4',
+            layerName: 'layer_gunung_maluku_4',
+            pane: 'pane_gunung_maluku_4',
+            onEachFeature: pop_gunung_maluku_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_gunung_maluku_4_0(feature));
+            },
+        });
+        var cluster_gunung_maluku_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_gunung_maluku_4.addLayer(layer_gunung_maluku_4);
+
+        bounds_group.addLayer(layer_gunung_maluku_4);
+        cluster_gunung_maluku_4.addTo(map);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/gunung_maluku_4.png" /> gunung_maluku': cluster_gunung_maluku_4,'<img src="legend/kota_maluku_3.png" /> kota_maluku': cluster_kota_maluku_3,'<img src="legend/jalan_maluku_2.png" /> jalan_maluku': layer_jalan_maluku_2,'<img src="legend/sungai_maluku_1.png" /> sungai_maluku': layer_sungai_maluku_1,'propinsi_maluku<br /><table><tr><td style="text-align: center;"><img src="legend/propinsi_maluku_0_AMBON0.png" /></td><td>AMBON</td></tr><tr><td style="text-align: center;"><img src="legend/propinsi_maluku_0_BURU1.png" /></td><td>BURU</td></tr><tr><td style="text-align: center;"><img src="legend/propinsi_maluku_0_MALUKUTENGAH2.png" /></td><td>MALUKU TENGAH</td></tr><tr><td style="text-align: center;"><img src="legend/propinsi_maluku_0_MALUKUTENGGARA3.png" /></td><td>MALUKU TENGGARA</td></tr><tr><td style="text-align: center;"><img src="legend/propinsi_maluku_0_MALUKUTENGGARABARAT4.png" /></td><td>MALUKU TENGGARA BARAT</td></tr></table>': layer_propinsi_maluku_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        </script>
+    </body>
+</html>
